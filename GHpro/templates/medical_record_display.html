@@ -1,0 +1,429 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>GentleHaloes</title>
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body>
+    <div class="hero_area">
+    
+    
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="header_top">
+            <div class="container">
+              <div class="contact_nav">
+                <a href="">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                  <span>
+                    Call : +01 123455678990
+                  </span>
+                </a>
+                <a href="">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                  <span>
+                    Email : gentlehaloes@gmail.com
+                  </span>
+                </a>
+                <a href="">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  <span>
+                    Location
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="header_bottom">
+            <div class="container-fluid">
+              <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                  <img src="{% static 'images/ghbc1.png' %}" alt="" style="width:140px; height:90px;">
+                </a>
+      
+      
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                </button>
+      
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
+                    <ul class="navbar-nav">
+                      <li class="nav-item active">
+                          <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                      </li>
+                  
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'about' %}"> About</a>
+                      </li>
+                  
+                      <li class="nav-item dropdown"> <!-- Add 'dropdown' class to create a dropdown item -->
+                          <a class="nav-link dropdown-toggle" href="#" id="galleryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Blog
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="galleryDropdown">
+                              <!-- Add your dropdown menu items here -->
+                              
+                              <a class="dropdown-item" href="{% url 'resources' %}">Resource</a>
+                              <a class="dropdown-item" href="{% url 'gallery' %}">Gallery</a>
+                              <!-- Add more items as needed -->
+                          </div>
+                      </li>
+                  
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'testimonial' %}">Review</a>
+                      </li>
+                  
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                      </li>
+                  </ul>
+                  </div>
+                  <div class="quote_btn-container">
+                    <div class="quote_btn-container">
+                      {% if user.is_authenticated %}
+                      <div class="dropdown">
+                          <button class="dropdown-toggle" type="button" id="loggedInDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span>{{ user.email }}</span>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="loggedInDropdown">
+                            <a class="dropdown-item" href="{% url 'print_patient_profile' %}">
+                              <i class="fa fa-sign-out" aria-hidden="true"></i>
+                              <span>Profile</span>
+                             </a>
+                             <a class="dropdown-item" href="{% url 'appointment_form' %}">
+                              <i class="fa fa-sign-out" aria-hidden="true"></i>
+                              <span>Make Appointments</span>
+                             </a>
+                             <a class="dropdown-item" href="{% url 'appointment_view' %}">
+                              <i class="fa fa-sign-out" aria-hidden="true"></i>
+                              <span>View Appointments</span>
+                             </a>
+                              <a class="dropdown-item" id="logout-button-id" href="{% url 'loggout' %}">
+                                  <i class="fa fa-sign-out" id="logout-button-id" aria-hidden="true"></i>
+                                  <span id="logout-button-id">Logout</span>
+                              </a>
+       
+                          </div>
+                      </div>
+                      {% else %}
+                      <div class="dropdown">
+                          <button class="dropdown-toggle" type="button" id="loginDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span>Login</span>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                              <a class="dropdown-item" href="{% url 'login_page' %}">
+                                  <i class="fa fa-user" aria-hidden="true"></i>
+                                  <span>Login Here</span>
+                              </a>
+                            
+                          </div>
+                      </div>
+                      {% endif %}
+                  </div>
+                  
+                  <div class="quote_btn-container">
+                    <div class="quote_btn-container">
+                      {% if user.is_authenticated %}
+                      {% comment %} <div class="dropdown">
+                          <button class="dropdown-toggle" type="button" id="loggedInDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span>Logged in as {{ user.username }}</span>
+                          </button> {% endcomment %}
+                          <div class="dropdown-menu" aria-labelledby="loggedInDropdown">
+                              <a class="dropdown-item" href="{% url 'loggout' %}">
+                                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                  <span>Logout</span>
+                              </a>
+                          </div>
+                      </div>
+                      {% else %}
+                      <div class="dropdown">
+                          <button class="dropdown-toggle" type="button" id="loginDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span>Signup</span>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                              <a class="dropdown-item" href="{% url 'register' %}">
+                                  <i class="fa fa-user" aria-hidden="true"></i>
+                                  <span>Patient Login</span>
+                              </a>
+                             
+                              
+                          </div>
+                      </div>
+                      {% endif %}
+                  </div>
+      
+      
+                   
+                {% comment %} <form class="form-inline">
+                      <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                         <i class="fa fa-search" aria-hidden="true"></i> 
+                      </button>
+                    </form> {% endcomment %}
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </header><BR><BR><BR>
+          <div class="row">
+            <div class="col-md-12">
+                <div class="search-bar">
+                    <a href="{% url 'medical_record_display' %}" class="back-button">
+                        <i class="fa fa-arrow-left"></i> Back to All Records
+                    </a>
+                    <form method="GET" action="{% url 'medical_record_search' %}">
+                        <div class="center-content">
+                    
+                            <a href="{% url 'generate_medical_record_pdf' %}" class="btn btn-primary custom-button" id="center-button" >Download Medical Record</a>
+                      
+                            &ensp;&ensp;&ensp;&ensp;<label for="selected_date">Select Date:</label>
+                            <input type="date" id="selected_date" name="selected_date" class="date-input">
+                            &ensp;&ensp;<button type="submit" class="search-button"> Search </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+
+     
+
+
+
+        
+
+    <BR><BR><BR>
+     
+    <h1>Medical Record Details</h1>
+    
+    
+<BR>
+
+  <div class="row doctor-grid">
+    {% for medical_record in medical_record %}
+            <div class="col-md-4 col-sm-4 col-lg-3">
+                <div class="profile-widget">
+                  
+                    <h4 class="doctor-name text-ellipsis"><a href="profile.html"><i class="fa fa-calendar"> </i> {{ medical_record.date }}</a></h4>
+                      
+                    <div class="user-country">
+                         <br>
+                    </div>
+                    <div>
+                      
+                        {% comment %} <p class="card-text">Date: {{ medical_record.date }}</p> {% endcomment %}
+                        <p class="card-text">Doctor's Notes: {{ medical_record.doctor_notes }}</p> 
+                        <p class="card-text">Medications Needed: {{ medical_record.medications_needed }}</p>
+                        <p class="card-text">Treatments: {{ medical_record.treatments }}</p>
+                        <p class="card-text">Current Conditions: {{ medical_record.current_conditions }}</p>
+                        
+                    </div>
+                </div>
+            </div>
+           
+        {% endfor %}
+   </div>
+    
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding:50px;
+            background: #f2e6dc;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #cdfaf2, #ecdaf7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color:black;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .record-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .record-item {
+            flex-basis: calc(50% - 10px);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .record-item {
+                flex-basis: 100%;
+            }
+        }
+        /* Add this CSS to your stylesheet */
+  .quote_btn-container .dropdown-toggle {
+      background-color: white;
+      color: #333; /* You can change this color to your preference */
+      border-radius: 50px; /* Adjust the value for more or less roundness */
+      padding: 10px 20px; /* Adjust padding as needed */
+      border: 1px solid #ccc; /* Add a border for better visibility */
+  }
+  
+  /* Style the dropdown menu items */
+  .dropdown-menu a.dropdown-item {
+      color: #333; /* You can change this color to your preference */
+  }
+  
+  .dropdown-menu a.dropdown-item:hover {
+      background-color: #f7f7f7; /* Change color on hover if desired */
+  }
+
+.quote_btn-container {
+    margin-bottom:10px; 
+    margin-top:10px; 
+    margin-right:25px; 
+    margin-left:10px; 
+}
+
+
+.dropdown-menu a.dropdown-item {
+    color: #333;
+}
+
+.dropdown-menu a.dropdown-item:hover {
+    background-color: #f7f7f7;
+}
+.button-container {
+  text-align: center; /* Center the content horizontally */
+  margin-top: 20px; /* Add margin to separate the table and button */
+}
+
+
+
+/* Style the search bar container */
+.search-bar {
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between; /* Align content to both ends */
+    align-items: center; /* Center vertically */
+}
+
+/* Style the back button */
+.back-button {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Style the label */
+.search-bar label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Style the date input */
+.date-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+/* Style the filter button */
+.search-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the filter button */
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Center content within the search bar */
+.center-content {
+    display: flex;
+    align-items: center;
+}
+.profile-widget {
+  color:black;
+  background-color:#f7f1e4; /* Add your desired background color */
+  font-size: 20px; /* Set the font size to 20px */
+  padding: 15px; /* Add padding for spacing */
+}
+
+/* Apply styles to the label elements inside "profile-widget" */
+  .profile-widget label {
+  font-weight: bold; /* Make the label text bold */
+}
+
+    </style>
+
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <!-- nice select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <!-- custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>
+     
+</body>
+</html>

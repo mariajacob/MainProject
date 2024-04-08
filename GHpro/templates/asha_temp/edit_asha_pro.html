@@ -1,0 +1,375 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <title>GentleHaloes Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+    <!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="{% url 'asha_index' %}" class="logo">
+					<img src="{% static 'images/ghbc1.png' %}" width="100" height="55" alt=""><span>GentleHaloes</span>
+				</a>
+			</div>
+			 <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+           
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span>{{ user.email }}</span>
+                    </a>
+                    {% if user.is_authenticated %}
+                    <div class="dropdown-menu">
+						{% comment %} <a class="dropdown-item" href="{% url 'edit_asha_profile' %}">Profile</a> {% endcomment %}
+						<a class="dropdown-item" href="{% url 'pro_ashaworker' %}">Profile</a>
+                        <a class="dropdown-item" href="{% url 'loggout' %}">Logout</a>
+					</div>
+                    {% else %}
+
+                    <div class="dropdown-menu">
+						
+						<a class="dropdown-item" href="{% url 'login_page' %}">Login</a>
+					</div>
+                    
+                    {% endif %}
+                </li>
+           
+        </div> 
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="{% url 'asha_index' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                           
+                        </li> 
+                        <li>
+                            <a href="{% url 'asha_approved_appo' %}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'asha_timeslots'%}"><i class="fa fa-calendar"></i> <span>Schedules</span></a> 
+                        </li>
+                        <li>
+                            <a href="{% url 'asha_timeslots_shows'%}"><i class="fa fa-calendar"></i> <span>View Schedules</span></a> 
+                        </li> 
+                        {% comment %} <li>
+                            <a href="{% url 'patient_users' %}"><i class="fa fa-wheelchair"></i> <span>Patients List</span></a>
+                            
+                        </li> {% endcomment %}
+                        <li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span>Patients </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								
+								<li><a href="{% url 'patient_users' %}">All Patients List</a></li>
+                                {% comment %} <li><a href="{% url 'patients_by_ward' %}"> Patients By Ward</a></li> {% endcomment %}
+                                <li><a href="{% url 'add_view_rec' %}"> Medical Record</a></li>
+                                
+								
+								
+							</ul>
+						</li>
+                        <li>
+                            <a href="{% url 'add_view_rec' %}"><i class="fa fa-calendar"></i> <span>Add Medical Record</span></a> 
+                        </li>
+                        <li>
+                            <a href="{% url 'Home_visit'%}"><i class="fa fa-calendar"></i> <span>Home Visit</span></a> 
+                        </li>
+                        {% comment %} <li>
+                            <a href="{% url 'appointment_chart_asha'%}"><i class="fa fa-calendar"></i> <span>Chart</span></a> 
+                        </li> {% endcomment %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="page-wrapper">
+        <div class="content">
+            <div class="card-header bg-transparent border-0">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <h4 class="page-title">My Profile</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    
+                    <div class="col-lg-8 offset-lg-2"><br>
+                        <h4 class="page-title" style="color: black; font-weight: bold;">General Informations</h4>  
+                        <form method="POST" action="" enctype="multipart/form-data" autocomplete="off">
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Name <span class="text-danger">*</span></label>
+                                        <input class="form-control" id="name" value="{{ asha.Name }}" name="name" type="text" readonly>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Email <span class="text-danger">*</span></label>
+                                        <input class="form-control" id="email" value="{{ user.email }}" name="email" type="email" readonly>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input class="form-control" id="pass" name="pass"  type="password">
+                                    </div>
+                                </div> {% endcomment %}
+                               
+								<div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <div class="cal-icon">
+                                            <input type="text" id="dob" name="dob" value="{{ asha.date_of_birth }}" class="form-control datetimepicker"readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Date of Join</label>
+                                        <div class="cal-icon">
+                                            <input type="text" id="doj" name="doj" value="{{ asha.date_of_join }}" class="form-control datetimepicker"readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+									<div class="form-group gender-select">
+										<label class="gen-label">Gender:</label>
+										<input type="text" name="gender" id="gender" value="{{ asha.gender }}" class="form-control "readonly>
+										
+									</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" name="address" id="address" value="{{ asha.address }}" class="form-control "readonly>
+                                    </div>
+                                </div>
+								<div class="col-sm-12">
+									<div class="row">
+										
+										<div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>Taluk</label>
+												
+                                                <input class="form-control"  id="taluk" value="{{ asha.taluk }}" name="taluk" type="text"readonly>
+											</div>
+										</div>
+										<div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>Panchayat</label>
+											
+                                                <input class="form-control"  id="panchayat" name="panchayat" value="{{ asha.Panchayat }}" type="text"readonly>
+											</div>
+										</div>
+										<div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>Ward</label>
+                                                <input type="text" class="form-control" name="ward" value="{{ asha.ward }}" id="ward"readonly>
+											</div>
+										</div>
+										<div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>Postal Code</label>
+												<input type="text" class="form-control" value="{{ asha.postal }}"  name="pin" id="pin"readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+                                <div class="col-sm-6">
+                                    <br><br><div class="form-group">
+                                        <label>Phone </label>
+                                        <input class="form-control" type="text" value="{{ asha.phone }}" name="phone" id="phone"readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <img alt="" src="{{ asha.profile_photo.url }}" height="70px" width="90px">
+                                        <label>Profile Photo</label>
+                                        
+                                        <input type="file" class="form-control" name="new_profile_photo">
+                                    </div>
+                                </div>
+                                 {% comment %} <div class="form-group">
+                                    <label for="profile_photo">Profile Photo:</label>
+                                    <input type="file" name="profile_photo" accept="image/*">
+                                </div> {% endcomment %}
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ID Proof<span class="text-danger"> * </span></label>
+                                    <div class="profile-upload">
+                                        {% comment %} <div class="upload-img">
+                                            <img alt="" src="{% if asha.id_proof %}{{ asha.id_proof.url }}{% else %}{% static 'assets/img/user.jpg' %}{% endif %}">
+                                        </div>  {% endcomment %}
+                                        <div class="upload-input">
+                                            <input type="file" class="form-control" name="id_proof">
+                                        </div>
+                                    </div>     
+                                </div>
+                            </div>
+                            
+                            <br><h4 class="page-title" style="color: black; font-weight: bold;">Educational Informations</h4>  
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6 ">
+                                        <div class="form-group">
+                                            <label>Highest Educational Level <span class="text-danger">*</span></label>
+                                            <select class="form-control" id="education_level" value="{{ asha.get_edu_level_display }}" name="edu_level">
+                                                <option value="" disabled selected>-Select Educational Level-</option>
+                                                <option value="High School">High School</option>
+                                                <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                                <option value="Master's Degree">Master's Degree</option>
+                                                <!-- Add more options as needed -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Institute Name<span class="text-danger"> * </span></label>
+                                            <input type="text" class="form-control" value="{{ asha.edu_inst }}" name="edu_inst" >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Year of Passing<span class="text-danger"> * </span></label>
+                                            <input type="text" class="form-control" value="{{ asha.year_pass_edu }}" name="year_pass_edu"  >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Upload Educational Certificates<span class="text-danger"> * </span></label>
+                                            <div class="profile-upload">
+                                                <div class="upload-img">
+                                                    <img alt="" src="{% if asha.edu_certificate %}{{ asha.edu_certificate.url }}{% else %}{% static 'assets/img/user.jpg' %}{% endif %}">
+                                                </div> 
+                                                <div class="upload-input">
+                                                    <input type="file" class="form-control" name="edu_certificate">
+                                                </div>
+                                            </div>     
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Additional Training(If Any)</label>
+                                            <input type="text" class="form-control" value="{{ asha.add_training }}" name="add_training"  >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Training Institute Name</label>
+                                            <input type="text" class="form-control" value="{{ asha.add_training_inst }}" name="add_training_inst" >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Year of Passing</label>
+                                            <input type="text" class="form-control" value="{{ asha.year_pass_add }}" name="year_pass_add"  >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Upload Certifications and Licenses:</label>
+                                            <div class="profile-upload">
+                                                <div class="upload-img">
+                                                    <img alt="" src="{% if asha.add_certificate %}{{ asha.add_certificate.url }}{% else %}{% static 'assets/img/user.jpg' %}{% endif %}">
+                                                </div> 
+                                                <div class="upload-input">
+                                                    <input type="file" class="form-control" name="add_certificate">
+                                                </div>
+                                            </div>     
+                                        </div>
+                                    </div>
+                                    
+
+
+
+                                    <div>
+                                        <label for="address" id="carde" class="form-label text animated zoomIn">Reset Password:</label>
+                                        <hr class=" text animated zoomIn" id="signintext2">
+                                        <input type="Password" class="form-control text animated zoomIn"  id="cardelement" name="old_password" placeholder="current password">
+                                        <input type="Password" class="form-control text animated zoomIn"  id="cardelement" name="reset_password" style="margin-top:20px;" placeholder="new password">
+                                        <input type="Password" class="form-control text animated zoomIn"  id="cardelement" name="cpass" style="margin-top:20px;" placeholder="confirm new password">
+                                        <span id="pspan" class="text-danger" style="margin-left:50%;"></span>
+                                    </div>
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                        <p class="text-danger" >{{ message }}</p>
+                                    {% endfor %}
+                                    {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="m-t-20 text-center">
+                                    <button class="btn btn-primary submit-btn">Edit Asha Worker</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                    
+                
+               
+            </div>
+            
+            </div>
+		</div>
+        </div>
+    </div>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.slimscroll.js' %}"></script>
+    <script src="{% static 'assets/js/select2.min.js' %}"></script>
+	<script src="{% static 'assets/js/moment.min.js' %}"></script>
+	<script src="{% static 'assets/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <style>
+        .header {
+            background-color: #00c6a9;
+            left: 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 1039;
+            height: 50px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+        body{
+            background: white;  /* fallback for old browsers */
+            
+        }
+    </style>
+</body>
+
+
+<!-- add-doctor24:06-->
+</html>
